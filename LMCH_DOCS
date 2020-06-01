@@ -12,7 +12,6 @@ library SafeMath {
     }
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {return sub(a, b, "SafeMath: subtraction overflow");}
 }
-
 contract LMCH_DOC_v02 {
     using SafeMath for uint256;
     mapping (address => uint256) private _balances;
