@@ -5,7 +5,6 @@ contract Proxy {
 
     address private admin;
     constructor() public {
-        targetAddress = 0x401ab4d75db2Fb94866a216B2A5f8A11507d5300;
         admin = msg.sender;
     }
 
