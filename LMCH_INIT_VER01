@@ -25,6 +25,20 @@ contract LMCH_DOC_v01 {
     uint8 private _decimals;
     uint256 private _totalSupply;
     string private last_useVersion;
+    
+    constructor() public {
+       managerDetail memory isManager = managerDetail("First Admin", 100);
+       Managers[msg.sender] = isManager;
+       admin               = msg.sender;
+       _name               = "Latam Cash";
+       _symbol             = "LMCH";
+       _decimals           = 18;
+       uint256 INIT_SUPPLY = 1000000000 * (10 ** uint256(_decimals));
+       _totalSupply = INIT_SUPPLY;
+       _balances[msg.sender] = INIT_SUPPLY;
+       managerList.push(msg.sender);
+       emit Transfer(address(0), msg.sender, _totalSupply);
+    }
 
     struct LockDetails{
         uint256 lockedTokencnt;
@@ -211,27 +225,5 @@ contract LMCH_DOC_v01 {
         //_approve(account, msg.sender, _allowances[account][msg.sender].sub(amount, "ERC20: burn amount exceeds allowance"));
         _burn(account, amount);
     }
-
-    //////////////////////////////////////// Lock token handle //////////////////////////////////////////
-
-    function token_mint(address account) public returns (bool){
-        require(account != address(0), "ERC20: mint to the zero address");
-        last_useVersion = "First Ver";
-        managerDetail memory isManager = managerDetail("First Admin", 100);
-        Managers[account] = isManager;
-
-        admin               = account;
-        _name               = "Latam Cash";
-        _symbol             = "LMCH";
-        _decimals           = 18;
-        uint256 INIT_SUPPLY = 1000000000 * (10 ** uint256(_decimals));
-
-        _totalSupply = INIT_SUPPLY;
-        _balances[account] = INIT_SUPPLY;
-        managerList.push(account);
-
-        emit Transfer(address(0), account, _totalSupply);
-        return true;
-    }
-
+   
 }
